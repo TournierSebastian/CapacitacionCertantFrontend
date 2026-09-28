@@ -1,10 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CasosService } from '../../services/casos/casos';
-import { TablaCasos } from '../../../shared/components/tabla-casos/tabla-casos';
 import { Caso } from '../../services/casos/casos';
 
 @Component({
-  imports: [TablaCasos],
+  imports: [],
   selector: 'app-casos-list-page',
   styleUrl: './casos-list-page.css',
   templateUrl: './casos-list-page.html',
