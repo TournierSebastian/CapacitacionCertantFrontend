@@ -5,7 +5,7 @@ import { Caso } from '../../services/casos/casos';
 @Component({
   imports: [],
   selector: 'app-casos-list-page',
-  styleUrl: './casos-list-page.css',
+  styleUrl: './casos-list-page.scss',
   templateUrl: './casos-list-page.html',
 })
 export class CasosListPage implements OnInit {

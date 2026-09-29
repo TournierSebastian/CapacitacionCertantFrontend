@@ -1,0 +1,95 @@
+:host {
+  display: inline-block;
+
+  // Colores del texto
+  --badge-color-green: #27835b;
+  --badge-color-blue: #3567c8;
+  --badge-color-gray: #64748b;
+  --badge-color-red: #c24141;
+  --badge-color-yellow: #b7791f;
+
+  // Fondos
+  --badge-background-green: #e7f7ef;
+  --badge-background-blue: #eaf1ff;
+  --badge-background-gray: #f1f3f6;
+  --badge-background-red: #fff0f0;
+  --badge-background-yellow: #fff5df;
+
+  // Bordes
+  --badge-border-green: #c3e9d4;
+  --badge-border-blue: #cbdcff;
+  --badge-border-gray: #dfe3e9;
+  --badge-border-red: #f5cccc;
+  --badge-border-yellow: #f5e2b5;
+
+  // Dimensiones
+  --badge-padding: 4px 10px;
+  --badge-border-radius: 20px;
+  --badge-font-size: 12px;
+  --badge-font-weight: 500;
+  --badge-line-height: 1.4;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: var(--badge-padding);
+  border: 1px solid transparent;
+  border-radius: var(--badge-border-radius);
+
+  font-family: inherit;
+  font-size: var(--badge-font-size);
+  font-weight: var(--badge-font-weight);
+  line-height: var(--badge-line-height);
+
+  white-space: nowrap;
+
+  &--green {
+    color: var(--badge-color-green);
+  }
+
+  &--blue {
+    color: var(--badge-color-blue);
+  }
+
+  &--gray {
+    color: var(--badge-color-gray);
+  }
+
+  &--red {
+    color: var(--badge-color-red);
+  }
+
+  &--yellow {
+    color: var(--badge-color-yellow);
+  }
+
+  &--shadow {
+    &.badge--green {
+      background: var(--badge-background-green);
+      border-color: var(--badge-border-green);
+    }
+
+    &.badge--blue {
+      background: var(--badge-background-blue);
+      border-color: var(--badge-border-blue);
+    }
+
+    &.badge--gray {
+      background: var(--badge-background-gray);
+      border-color: var(--badge-border-gray);
+    }
+
+    &.badge--red {
+      background: var(--badge-background-red);
+      border-color: var(--badge-border-red);
+    }
+
+    &.badge--yellow {
+      background: var(--badge-background-yellow);
+      border-color: var(--badge-border-yellow);
+    }
+  }
+}
