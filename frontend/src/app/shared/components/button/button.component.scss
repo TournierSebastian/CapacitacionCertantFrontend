@@ -1,0 +1,100 @@
+:host {
+  display: inline-block;
+
+  // Colores
+  --button-primary-color: #fff;
+  --button-primary-background: #5b4bdb;
+  --button-primary-border: #5b4bdb;
+  --button-primary-hover-background: #1f1472;
+  --button-primary-hover-border: #1f1472;
+
+  --button-secondary-color: #4d5157;
+  --button-secondary-background: #fff;
+  --button-secondary-border: #dfe3e9;
+  --button-secondary-hover-background: #f5f6f8;
+
+  --button-tertiary-color: #000;
+  --button-tertiary-background: transparent;
+  --button-tertiary-border: transparent;
+  --button-tertiary-hover-color: #424242;
+
+  // Estados
+  --button-focus-color: #5b4bdb;
+  --button-tertiary-focus-color: #9ca3af;
+  --button-disabled-opacity: 0.5;
+
+  // Dimensiones
+  --button-padding: 10px 16px;
+  --button-border-radius: 6px;
+  --button-font-size: 14px;
+  --button-font-weight: 500;
+  --button-border-width: 1px;
+  --button-transition-duration: 0.2s;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: var(--button-padding);
+
+  border: var(--button-border-width) solid transparent;
+  border-radius: var(--button-border-radius);
+
+  font: inherit;
+  font-size: var(--button-font-size);
+  font-weight: var(--button-font-weight);
+
+  cursor: pointer;
+
+  transition:
+    background-color var(--button-transition-duration) ease,
+    border-color var(--button-transition-duration) ease;
+
+  &:focus-visible {
+    outline: 2px solid var(--button-focus-color);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: var(--button-disabled-opacity);
+    cursor: not-allowed;
+  }
+
+  &--primary {
+    color: var(--button-primary-color);
+    background-color: var(--button-primary-background);
+    border-color: var(--button-primary-border);
+
+    &:hover:not(:disabled) {
+      background-color: var(--button-primary-hover-background);
+      border-color: var(--button-primary-hover-border);
+    }
+  }
+
+  &--secondary {
+    color: var(--button-secondary-color);
+    background-color: var(--button-secondary-background);
+    border-color: var(--button-secondary-border);
+
+    &:hover:not(:disabled) {
+      background-color: var(--button-secondary-hover-background);
+    }
+  }
+
+  &--tertiary {
+    color: var(--button-tertiary-color);
+    background-color: var(--button-tertiary-background);
+    border-color: var(--button-tertiary-border);
+
+    &:hover:not(:disabled) {
+      color: var(--button-tertiary-hover-color);
+      background-color: var(--button-tertiary-background);
+    }
+
+    &:focus-visible {
+      outline-color: var(--button-tertiary-focus-color);
+    }
+  }
+}

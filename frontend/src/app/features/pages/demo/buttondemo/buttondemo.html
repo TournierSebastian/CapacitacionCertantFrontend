@@ -1,0 +1,25 @@
+<section class="button-demo">
+  <h2>Demo de botones</h2>
+
+  <div class="button-demo__group">
+    <h3>Variantes</h3>
+
+    <app-button variant="primary" (clicked)="btnClick('primary')">
+      Botón principal
+    </app-button>
+
+    <app-button variant="secondary" (clicked)="btnClick('secondary')">
+      Botón secundario
+    </app-button>
+
+    <app-button variant="tertiary" (clicked)="btnClick('tertiary')">
+      Botón terciario
+    </app-button>
+
+  </div>
+
+
+  @if (mensaje) {
+  <p class="button-demo__message">{{ mensaje }}</p>
+  }
+</section>
