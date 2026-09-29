@@ -1,0 +1,64 @@
+:host {
+  display: block;
+
+  // Colores
+  --paragraph-color-primary: #4d5157;
+  --paragraph-color-secondary: #747987;
+  --paragraph-color-muted: #858a97;
+  --paragraph-color-dark: #333744;
+
+  // Tipografía
+  --paragraph-font-size: 1rem;
+  --paragraph-font-weight: 400;
+  --paragraph-line-height: 1.5;
+
+  // Tamaños
+  --paragraph-font-size-sm: 12px;
+  --paragraph-font-size-md: 14px;
+  --paragraph-font-size-lg: 24px;
+
+  // Peso
+  --paragraph-font-weight-bold: 700;
+}
+
+.paragraph {
+  margin: 0;
+
+  font-family: inherit;
+  font-size: var(--paragraph-font-size);
+  font-weight: var(--paragraph-font-weight);
+  line-height: var(--paragraph-line-height);
+  color: var(--paragraph-color-primary);
+
+  &--sm {
+    font-size: var(--paragraph-font-size-sm);
+  }
+
+  &--md {
+    font-size: var(--paragraph-font-size-md);
+  }
+
+  &--lg {
+    font-size: var(--paragraph-font-size-lg);
+  }
+
+  &--bold {
+    font-weight: var(--paragraph-font-weight-bold);
+  }
+
+  &--primary {
+    color: var(--paragraph-color-primary);
+  }
+
+  &--secondary {
+    color: var(--paragraph-color-secondary);
+  }
+
+  &--muted {
+    color: var(--paragraph-color-muted);
+  }
+
+  &--dark {
+    color: var(--paragraph-color-dark);
+  }
+}
