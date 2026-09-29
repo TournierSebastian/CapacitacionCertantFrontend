@@ -1,0 +1,30 @@
+<section class="demo">
+  <header class="demo__header">
+    <h2 class="demo__title">Side Panel</h2>
+    <p class="demo__description">
+      Abrí el panel para visualizar su contenido.
+    </p>
+  </header>
+
+  <button
+    class="demo__open-button"
+    type="button"
+    (click)="abrirPanel()"
+  >
+    Abrir panel
+  </button>
+
+  <app-side-panel [(open)]="panelAbierto">
+    <app-side-panel-header>
+
+    </app-side-panel-header>
+
+    <app-side-panel-content>
+
+    </app-side-panel-content>
+
+    <app-side-panel-footer>
+
+    </app-side-panel-footer>
+  </app-side-panel>
+</section>
