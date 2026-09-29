@@ -1,0 +1,48 @@
+<section >
+    <h1>Textfield</h1>
+    <p>Campo de texto reutilizable con distintos usos.</p>
+
+      <label class="demo__label" for="nombre">Nombre</label>
+
+      <app-textfield
+        placeholder="Ingresá tu nombre"
+        label="Nombre"
+        [(value)]="nombre"
+      />
+
+      <p class="demo__value">
+        Valor: {{ nombre() || 'Sin completar' }}
+      </p>
+
+      <label class="demo__label" for="busqueda">Buscar casos</label>
+
+      <app-textfield
+        icon="⌕"
+        placeholder="Buscar por caso, responsable o ID..."
+        label="Buscar casos"
+        [(value)]="busqueda"
+      />
+
+      <p class="demo__value">
+        Búsqueda: {{ busqueda() || 'Sin búsqueda' }}
+      </p>
+
+      <label class="demo__label" for="email">Email</label>
+
+      <app-textfield
+        icon="✉"
+        type="email"
+        placeholder="nombre@correo.com"
+        label="Email"
+        [(value)]="email"
+      />
+
+      <p class="demo__value">
+        Email: {{ email() || 'Sin completar' }}
+      </p>
+
+
+  <button class="demo__button" type="button" (click)="limpiar()">
+    Limpiar campos
+  </button>
+</section>

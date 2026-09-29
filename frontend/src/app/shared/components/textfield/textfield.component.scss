@@ -1,0 +1,68 @@
+:host {
+  display: block;
+  width: 100%;
+
+  // Colores
+  --textfield-background: #fff;
+  --textfield-color: #282b35;
+  --textfield-border-color: #dfe2e9;
+  --textfield-placeholder-color: #9a9eaa;
+  --textfield-icon-color: #858b99;
+  --textfield-focus-color: #8275e7;
+  --textfield-focus-ring: rgb(91 75 219 / 12%);
+
+  // Dimensiones
+  --textfield-height: 42px;
+  --textfield-padding: 0 14px;
+  --textfield-padding-with-icon: 0 14px 0 40px;
+  --textfield-border-radius: 8px;
+  --textfield-font-size: 13px;
+  --textfield-icon-size: 23px;
+}
+
+.textfield {
+  position: relative;
+  width: 100%;
+
+  &__input {
+    box-sizing: border-box;
+    width: 100%;
+    height: var(--textfield-height);
+    padding: var(--textfield-padding);
+
+    border: 1px solid var(--textfield-border-color);
+    border-radius: var(--textfield-border-radius);
+
+    background: var(--textfield-background);
+    color: var(--textfield-color);
+
+    font: inherit;
+    font-size: var(--textfield-font-size);
+
+    &::placeholder {
+      color: var(--textfield-placeholder-color);
+    }
+
+    &:focus-visible {
+      outline: 3px solid var(--textfield-focus-ring);
+      border-color: var(--textfield-focus-color);
+    }
+  }
+
+  &__icon {
+    position: absolute;
+    top: 50%;
+    left: 13px;
+    transform: translateY(-53%);
+
+    color: var(--textfield-icon-color);
+    font-size: var(--textfield-icon-size);
+    line-height: 1;
+
+    pointer-events: none;
+  }
+
+  &:has(.textfield__icon) &__input {
+    padding: var(--textfield-padding-with-icon);
+  }
+}

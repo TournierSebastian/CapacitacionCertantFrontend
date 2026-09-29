@@ -1,0 +1,16 @@
+<div class="textfield">
+  @if (icon(); as iconValue) {
+    <span class="textfield__icon" aria-hidden="true">
+      {{ iconValue }}
+    </span>
+  }
+
+  <input
+    class="textfield__input"
+    [type]="type()"
+    [placeholder]="placeholder()"
+    [attr.aria-label]="label() || placeholder()"
+    [value]="value()"
+    (input)="onInput($event)"
+  />
+</div>
