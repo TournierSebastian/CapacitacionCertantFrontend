@@ -1,0 +1,13 @@
+<section class="select-demo">
+  <h2>Demo de Select</h2>
+
+  <app-select
+    [options]="estados"
+    placeholder="Todos los estados"
+    ariaLabel="Filtrar por estado"
+    [(value)]="estadoSeleccionado"
+  />
+
+  <p>Estado seleccionado: {{ estadoSeleccionado || 'Todos los estados' }}</p>
+
+</section>
