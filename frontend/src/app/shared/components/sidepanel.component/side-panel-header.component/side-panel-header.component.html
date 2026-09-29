@@ -1,0 +1,13 @@
+<div class="side-panel-header">
+  <div class="side-panel-header__content">
+    <ng-content />
+  </div>
+
+  <app-button
+    variant="tertiary"
+    ariaLabel="Cerrar panel"
+    (clicked)="closed.emit()"
+  >
+    <span aria-hidden="true">✖</span>
+  </app-button>
+</div>

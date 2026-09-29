@@ -1,0 +1,24 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.side-panel-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+
+  &__content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  app-button {
+    flex-shrink: 0;
+
+    --button-padding: 4px;
+    --button-font-size: 22px;
+  }
+}
