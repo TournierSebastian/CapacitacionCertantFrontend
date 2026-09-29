@@ -1,0 +1,49 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+:host ::ng-deep .data-table thead {
+  background: #fafbfc;
+}
+
+:host ::ng-deep .data-table th {
+  height: 48px;
+  padding: 0 20px;
+  color: #777d8b;
+  font-size: 11px;
+  font-weight: 650;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+:host ::ng-deep .data-table td {
+  padding: 17px 20px;
+  border-top: 1px solid #edf0f4;
+  vertical-align: middle;
+}
+
+:host ::ng-deep .data-table__row--interactive {
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+:host ::ng-deep .data-table__row--interactive:hover {
+  background: #faf9ff;
+}
+
+:host ::ng-deep .data-table__row--interactive:focus-visible {
+  outline: 2px solid #5b4bdb;
+  outline-offset: -2px;
+}
