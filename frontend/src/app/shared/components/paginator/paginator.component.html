@@ -1,0 +1,32 @@
+<nav class="pagination" aria-label="Paginación">
+  <button
+    class="pagination-button pagination-button--navigation"
+    type="button"
+    [disabled]="!puedeIrAnterior()"
+    (click)="irAnterior()"
+  >
+    Anterior
+  </button>
+
+  @for (pagina of paginas(); track pagina) {
+    <button
+      class="pagination-button page-number"
+      type="button"
+      [class.active]="paginaActual() === pagina"
+      [attr.aria-current]="paginaActual() === pagina ? 'page' : null"
+      [attr.aria-label]="'Página ' + pagina"
+      (click)="irAPagina(pagina)"
+    >
+      {{ pagina }}
+    </button>
+  }
+
+  <button
+    class="pagination-button pagination-button--navigation"
+    type="button"
+    [disabled]="!puedeIrSiguiente()"
+    (click)="irSiguiente()"
+  >
+    Siguiente
+  </button>
+</nav>

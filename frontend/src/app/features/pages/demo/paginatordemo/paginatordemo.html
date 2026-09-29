@@ -1,0 +1,23 @@
+<section>
+  <header >
+    <h2>Paginator</h2>
+
+    <p>
+      Seleccioná una página para probar la navegación.
+    </p>
+  </header>
+
+  <div class="demo__content">
+    <app-paginator
+      [paginaActual]="paginaActual"
+      [totalPaginas]="totalPaginas"
+      [paginas]="paginas"
+      (cambiarPagina)="cambiarPagina($event)"
+    />
+  </div>
+
+  <p class="demo__current-page" aria-live="polite">
+    Página seleccionada: <strong>{{ paginaActual }}</strong>
+    de {{ totalPaginas }}
+  </p>
+</section>
