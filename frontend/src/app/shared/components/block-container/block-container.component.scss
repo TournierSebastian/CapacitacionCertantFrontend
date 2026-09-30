@@ -1,0 +1,21 @@
+:host {
+  display: block;
+  min-width: 0;
+  max-width: 100%;
+
+  --block-container-border-color: #e5e7ed;
+  --block-container-border-radius: 8px;
+  --block-container-background: #fff;
+}
+
+.block-container {
+  width: 100%;
+  box-sizing: border-box;
+
+  &--surface {
+    overflow: hidden;
+    border: 1px solid var(--block-container-border-color);
+    border-radius: var(--block-container-border-radius);
+    background: var(--block-container-background);
+  }
+}

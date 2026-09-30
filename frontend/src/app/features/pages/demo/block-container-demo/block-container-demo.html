@@ -1,0 +1,60 @@
+<section class="block-container">
+  <header>
+    <h2>Demo de Block Container</h2>
+    <p>
+      Contenedor reutilizable con diferentes apariencias y espaciados.
+    </p>
+  </header>
+
+    <h3>Plain</h3>
+
+    <app-block-container
+      appearance="plain"
+      padding="24px"
+    >
+        <strong>Contenedor plain</strong>
+        <p>
+          Esta variante no tiene fondo ni borde.
+        </p>
+    </app-block-container>
+
+    <h3>Surface</h3>
+
+    <app-block-container
+      appearance="surface"
+      padding="24px"
+    >
+        <strong>Contenedor surface</strong>
+        <p>
+          Esta variante tiene borde, fondo blanco y bordes redondeados.
+        </p>
+   
+    </app-block-container>
+
+    <h3>Diferentes paddings</h3>
+
+      <app-block-container
+        appearance="surface"
+        padding="8px"
+      >
+          <strong>8px</strong>
+          <p>Padding pequeño.</p>
+      </app-block-container>
+
+      <app-block-container
+        appearance="surface"
+        padding="16px"
+      >
+          <strong>16px</strong>
+          <p>Padding mediano.</p>
+      </app-block-container>
+
+      <app-block-container
+        appearance="surface"
+        padding="32px"
+      >
+          <strong>32px</strong>
+          <p>Padding grande.</p>
+      </app-block-container>
+
+</section>

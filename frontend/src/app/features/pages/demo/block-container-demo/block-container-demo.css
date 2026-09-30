@@ -1,0 +1,10 @@
+:host {
+  display: block;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.block-container {
+  width: 100%;
+  box-sizing: border-box;
+}
