@@ -1,0 +1,15 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+
+.flex-layout {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+}
+
+:host ::ng-deep .flex-layout--grow-children > * {
+  flex: 1 1 0;
+  min-width: 0;
+}
