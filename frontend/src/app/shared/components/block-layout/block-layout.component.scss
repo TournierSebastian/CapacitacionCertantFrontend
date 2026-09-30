@@ -1,0 +1,10 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+
+.block-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  width: 100%;
+}
