@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Caso } from '../../../services/casos/casos';
+import { Caso } from '../../../models/casos/casos.model';
 import { BadgeComponent } from '../../../../shared/components/badge/badge.component';
 import { TableComponent } from '../../../../shared/components/table.component/table.component';
 import { TableBodyComponent } from '../../../../shared/components/table.component/table-body/table-body.component';
@@ -27,6 +27,7 @@ export class TableDemo {
     {
       identificador: 1024,
       titulo: 'Error al iniciar sesión',
+      descripcion: '',
       estado: 'Abierto',
       prioridad: 'Alta',
       responsableAsignado: 'María González',
@@ -35,6 +36,7 @@ export class TableDemo {
     {
       identificador: 1025,
       titulo: 'Problema al guardar cambios',
+      descripcion: '',
       estado: 'En progreso',
       prioridad: 'Media',
       responsableAsignado: 'Juan Pérez',
@@ -43,6 +45,7 @@ export class TableDemo {
     {
       identificador: 1026,
       titulo: 'Actualizar datos de perfil',
+      descripcion: '',
       estado: 'Abierto',
       prioridad: 'Baja',
       responsableAsignado: 'Ana Gómez',
@@ -51,6 +54,7 @@ export class TableDemo {
     {
       identificador: 1027,
       titulo: 'Error en la búsqueda',
+      descripcion: '',
       estado: 'Cerrado',
       prioridad: 'Media',
       responsableAsignado: 'Pedro Ruiz',
@@ -59,6 +63,7 @@ export class TableDemo {
     {
       identificador: 1028,
       titulo: 'Carga lenta de la pantalla',
+      descripcion: '',
       estado: 'En progreso',
       prioridad: 'Alta',
       responsableAsignado: 'Lucía Fernández',
@@ -67,6 +72,7 @@ export class TableDemo {
     {
       identificador: 1029,
       titulo: 'Error al adjuntar archivos',
+      descripcion: '',
       estado: 'Abierto',
       prioridad: 'Alta',
       responsableAsignado: 'María González',
@@ -75,6 +81,7 @@ export class TableDemo {
     {
       identificador: 1030,
       titulo: 'Ajuste de estilos',
+      descripcion: '',
       estado: 'Cerrado',
       prioridad: 'Baja',
       responsableAsignado: 'Juan Pérez',

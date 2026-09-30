@@ -9,6 +9,9 @@ import { Buttondemo } from './features/pages/demo/buttondemo/buttondemo';
 import { TextfieldDemo } from './features/pages/demo/textfield-demo/textfield-demo';
 import { Paginatordemo } from './features/pages/demo/paginatordemo/paginatordemo';
 import { SidePanelDemoComponent } from './features/pages/demo/sidepaneldemo/side-paneldemo';
+import { BlockContainerDemo } from './features/pages/demo/block-container-demo/block-container-demo';
+import { BlockLayoutDemo } from './features/pages/demo/block-layout-demo/block-layout-demo';
+import { FlexLayoutDemo } from './features/pages/demo/flex-layout-demo/flex-layout-demo';
 export const routes: Routes = [
   {
     path: 'casos',
@@ -49,6 +52,18 @@ export const routes: Routes = [
   {
     path: 'demo/sidepanel',
     component: SidePanelDemoComponent,
+  },
+  {
+    path: 'demo/block-container',
+    component: BlockContainerDemo
+  },
+  {
+    path: 'demo/block-layout',
+    component: BlockLayoutDemo
+  },
+  {
+    path: 'demo/flex-layout',
+    component: FlexLayoutDemo
   },
   {
     path: '**',

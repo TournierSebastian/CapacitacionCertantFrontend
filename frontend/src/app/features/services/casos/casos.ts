@@ -1,22 +1,16 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { forkJoin, map, Observable, of, switchMap } from 'rxjs';
+import {
+  Caso,
+  CasoApi,
+  CasoInput,
+  CasosApiResponse,
+  CasosPagina,
+} from '../../models/casos/casos.model';
 
-/**
- * Servicio para consumir los endpoints de casos de la API de entrenamiento.
- *
- * Ajustá API_URL si tu backend corre en otra dirección.
- * La API documentada usa como base: http://localhost:3000/api
- */
-export interface Caso {
-  identificador: string | number;
-  titulo: string;
-  estado: string;
-  prioridad: string;
-  responsableAsignado: string;
-  fechaCreacion: string;
-}
-export type CasoInput = Partial<Caso>;
+export type { Caso, CasoInput, CasoApi, CasosApiResponse, CasosPagina } from '../../models/casos/casos.model';
+
 
 @Injectable({
   providedIn: 'root',
@@ -25,17 +19,90 @@ export class CasosService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = 'http://localhost:3000/api/casos';
 
-  /** GET /casos — Lista y filtra casos. */
-  listar(filtros?: Record<string, string | number | boolean>): Observable<Caso[]> {
+  /** GET /casos — Obtiene una página y devuelve la metadata del backend. */
+  listar(
+    pagina = 1,
+    limite = 10,
+    filtros?: Record<string, string | number | boolean>,
+  ): Observable<CasosPagina> {
+    return this.http
+      .get<CasosApiResponse>(this.apiUrl, {
+        params: this.crearParams(filtros, pagina, limite),
+      })
+      .pipe(map((respuesta) => this.normalizarPagina(respuesta)));
+  }
+
+  /** GET /casos — Obtiene todas las páginas, reservado para búsqueda global. */
+  listarTodos(
+    filtros?: Record<string, string | number | boolean>,
+  ): Observable<Caso[]> {
+    return this.listar(1, 10, filtros).pipe(
+      switchMap((primeraPagina) => {
+        const paginasRestantes = Array.from(
+          { length: Math.max(primeraPagina.totalPaginas - 1, 0) },
+          (_, indice) => indice + 2,
+        );
+
+        if (paginasRestantes.length === 0) {
+          return of(primeraPagina.casos);
+        }
+
+        return forkJoin(
+          paginasRestantes.map((pagina) =>
+            this.listar(pagina, primeraPagina.limite, filtros),
+          ),
+        ).pipe(
+          map((otrasPaginas) => [primeraPagina, ...otrasPaginas].flatMap((respuesta) => respuesta.casos)),
+        );
+      }),
+    );
+  }
+
+  private crearParams(
+    filtros?: Record<string, string | number | boolean>,
+    pagina?: number,
+    limite?: number,
+  ): HttpParams {
     let params = new HttpParams();
 
-    if (filtros) {
-      for (const [clave, valor] of Object.entries(filtros)) {
-        params = params.set(clave, String(valor));
-      }
+    for (const [clave, valor] of Object.entries(filtros ?? {})) {
+      params = params.set(clave, String(valor));
     }
 
-    return this.http.get<Caso[]>(this.apiUrl, { params });
+    return params.set('pagina', pagina ?? 1).set('limite', limite ?? 10);
+  }
+
+  private normalizarPagina(respuesta: CasosApiResponse): CasosPagina {
+    return {
+      casos: respuesta.data.map((caso) => this.normalizarCaso(caso)),
+      total: respuesta.paginacion.total,
+      pagina: respuesta.paginacion.pagina,
+      limite: respuesta.paginacion.limite,
+      totalPaginas: respuesta.paginacion.paginas,
+    };
+  }
+
+  private normalizarCaso(caso: CasoApi): Caso {
+    const estados: Record<string, string> = {
+      ABIERTO: 'Abierto',
+      EN_PROGRESO: 'En progreso',
+      RESUELTO: 'Resuelto',
+    };
+    const prioridades: Record<string, string> = {
+      ALTA: 'Alta',
+      MEDIA: 'Media',
+      BAJA: 'Baja',
+    };
+
+    return {
+      identificador: caso.id,
+      titulo: caso.titulo,
+      descripcion: caso.descripcion ?? '',
+      estado: estados[caso.estado] ?? caso.estado,
+      prioridad: prioridades[caso.prioridad] ?? caso.prioridad,
+      responsableAsignado: caso.responsableNombre ?? 'Sin asignar',
+      fechaCreacion: caso.fechaCreacion,
+    };
   }
 
   /** GET /casos/{id} — Obtiene un caso por su identificador. */
