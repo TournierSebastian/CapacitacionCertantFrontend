@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+
 import { Caso } from '../../../models/casos/casos.model';
+
 import { BadgeComponent } from '../../../../shared/components/badge/badge.component';
 import { TableComponent } from '../../../../shared/components/table.component/table.component';
 import { TableBodyComponent } from '../../../../shared/components/table.component/table-body/table-body.component';
@@ -9,82 +11,89 @@ import { TableHeaderCellComponent } from '../../../../shared/components/table.co
 import { TableRowComponent } from '../../../../shared/components/table.component/table-row/table-row.component';
 
 @Component({
+  selector: 'app-table-demo',
   imports: [
     BadgeComponent,
+    TableComponent,
     TableBodyComponent,
     TableCellComponent,
-    TableComponent,
     TableHeadComponent,
     TableHeaderCellComponent,
     TableRowComponent,
   ],
-  selector: 'app-table-demo',
-  styleUrl: './table-demo.css',
   templateUrl: './table-demo.html',
+  styleUrl: './table-demo.css',
 })
 export class TableDemo {
   readonly casos: Caso[] = [
     {
-      identificador: 1024,
+      id: 1024,
       titulo: 'Error al iniciar sesión',
       descripcion: '',
       estado: 'Abierto',
       prioridad: 'Alta',
-      responsableAsignado: 'María González',
+      responsableId: 1,
+      responsableNombre: 'María González',
       fechaCreacion: '2026-09-20',
     },
     {
-      identificador: 1025,
+      id: 1025,
       titulo: 'Problema al guardar cambios',
       descripcion: '',
       estado: 'En progreso',
       prioridad: 'Media',
-      responsableAsignado: 'Juan Pérez',
+      responsableId: 2,
+      responsableNombre: 'Juan Pérez',
       fechaCreacion: '2026-09-21',
     },
     {
-      identificador: 1026,
+      id: 1026,
       titulo: 'Actualizar datos de perfil',
       descripcion: '',
       estado: 'Abierto',
       prioridad: 'Baja',
-      responsableAsignado: 'Ana Gómez',
+      responsableId: 3,
+      responsableNombre: 'Ana Gómez',
       fechaCreacion: '2026-09-22',
     },
     {
-      identificador: 1027,
+      id: 1027,
       titulo: 'Error en la búsqueda',
       descripcion: '',
       estado: 'Cerrado',
       prioridad: 'Media',
-      responsableAsignado: 'Pedro Ruiz',
+      responsableId: 4,
+      responsableNombre: 'Pedro Ruiz',
       fechaCreacion: '2026-09-23',
     },
     {
-      identificador: 1028,
+      id: 1028,
       titulo: 'Carga lenta de la pantalla',
       descripcion: '',
       estado: 'En progreso',
       prioridad: 'Alta',
-      responsableAsignado: 'Lucía Fernández',
+      responsableId: 5,
+      responsableNombre: 'Lucía Fernández',
       fechaCreacion: '2026-09-24',
     },
     {
-      identificador: 1029,
+      id: 1029,
       titulo: 'Error al adjuntar archivos',
       descripcion: '',
       estado: 'Abierto',
       prioridad: 'Alta',
-      responsableAsignado: 'María González',
+      responsableId: 1,
+      responsableNombre: 'María González',
       fechaCreacion: '2026-09-25',
     },
     {
-      identificador: 1030,
+      id: 1030,
       titulo: 'Ajuste de estilos',
       descripcion: '',
       estado: 'Cerrado',
       prioridad: 'Baja',
-      responsableAsignado: 'Juan Pérez',
+      responsableId: 2,
+      responsableNombre: 'Juan Pérez',
       fechaCreacion: '2026-09-26',
     },
   ];

@@ -1,16 +1,17 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
+import type { Responsable, ResponsableInput } from '../../models/responsables/responsable.model';
 
-export type Responsable = Record<string, unknown>;
-export type ResponsableInput = Record<string, unknown>;
+export type { Responsable, ResponsableInput } from '../../models/responsables/responsable.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ResponsablesService {
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = 'http://localhost:3000/api/responsables';
+  private readonly apiUrl = `${environment.apiUrl}/responsables`;
 
   listar(
     filtros?: Record<string, string | number | boolean>

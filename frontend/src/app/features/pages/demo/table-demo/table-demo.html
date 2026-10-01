@@ -12,13 +12,13 @@
 			</app-table-row>
 		</app-table-head>
 		<app-table-body>
-			@for (caso of casos; track caso.identificador) {
+			@for (caso of casos; track caso.id) {
 				<app-table-row>
-					<app-table-cell>#{{ caso.identificador }}</app-table-cell>
+					<app-table-cell>#{{ caso.id }}</app-table-cell>
 					<app-table-cell>{{ caso.titulo }}</app-table-cell>
 					<app-table-cell><app-badgecomponent>{{ caso.estado }}</app-badgecomponent></app-table-cell>
 					<app-table-cell>{{ caso.prioridad }}</app-table-cell>
-					<app-table-cell>{{ caso.responsableAsignado }}</app-table-cell>
+					<app-table-cell>{{ caso.responsableNombre }}</app-table-cell>
 					<app-table-cell>{{ caso.fechaCreacion }}</app-table-cell>
 				</app-table-row>
 			}
