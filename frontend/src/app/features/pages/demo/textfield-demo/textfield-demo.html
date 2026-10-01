@@ -1,48 +1,75 @@
-<section >
+<section class="demo">
+
+  <header class="demo__header">
     <h1>Textfield</h1>
     <p>Campo de texto reutilizable con distintos usos.</p>
+  </header>
 
-      <label class="demo__label" for="nombre">Nombre</label>
+  <form [formGroup]="formulario">
+
+    <div class="demo__field">
+      <label class="demo__label">
+        Nombre
+      </label>
 
       <app-textfield
+        formControlName="nombre"
         placeholder="Ingresá tu nombre"
         label="Nombre"
-        [(value)]="nombre"
       />
 
       <p class="demo__value">
-        Valor: {{ nombre() || 'Sin completar' }}
+        Valor:
+        {{ formulario.controls.nombre.value || 'Sin completar' }}
       </p>
+    </div>
 
-      <label class="demo__label" for="busqueda">Buscar casos</label>
+    <div class="demo__field">
+      <label class="demo__label">
+        Buscar casos
+      </label>
 
       <app-textfield
+        formControlName="busqueda"
         icon="⌕"
+        type="search"
         placeholder="Buscar por caso, responsable o ID..."
         label="Buscar casos"
-        [(value)]="busqueda"
       />
 
       <p class="demo__value">
-        Búsqueda: {{ busqueda() || 'Sin búsqueda' }}
+        Búsqueda:
+        {{ formulario.controls.busqueda.value || 'Sin búsqueda' }}
       </p>
+    </div>
 
-      <label class="demo__label" for="email">Email</label>
+    <div class="demo__field">
+      <label class="demo__label">
+        Email
+      </label>
 
       <app-textfield
+        formControlName="email"
         icon="✉"
         type="email"
         placeholder="nombre@correo.com"
         label="Email"
-        [(value)]="email"
       />
 
       <p class="demo__value">
-        Email: {{ email() || 'Sin completar' }}
+        Email:
+        {{ formulario.controls.email.value || 'Sin completar' }}
       </p>
+    </div>
 
+    <button
+      class="demo__button"
+      type="button"
+      (click)="limpiar()"
+    >
+      Limpiar campos
+    </button>
 
-  <button class="demo__button" type="button" (click)="limpiar()">
-    Limpiar campos
-  </button>
+  </form>
+
 </section>
