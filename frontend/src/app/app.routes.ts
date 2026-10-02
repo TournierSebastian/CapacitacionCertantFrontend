@@ -12,6 +12,7 @@ import { SidePanelDemoComponent } from './features/pages/demo/sidepaneldemo/side
 import { BlockContainerDemo } from './features/pages/demo/block-container-demo/block-container-demo';
 import { BlockLayoutDemo } from './features/pages/demo/block-layout-demo/block-layout-demo';
 import { FlexLayoutDemo } from './features/pages/demo/flex-layout-demo/flex-layout-demo';
+import { ToastDemoComponent } from './features/pages/demo/toast-demo/toast-demo';
 export const routes: Routes = [
   {
     path: 'casos',
@@ -65,6 +66,8 @@ export const routes: Routes = [
     path: 'demo/flex-layout',
     component: FlexLayoutDemo
   },
+  { path: 'demo/toast'
+    , component: ToastDemoComponent },
   {
     path: '**',
     redirectTo: 'casos'

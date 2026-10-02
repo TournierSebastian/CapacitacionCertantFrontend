@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 
 type ParagraphSize = 'sm' | 'md' | 'lg';
-type ParagraphColor = | 'primary'| 'secondary' | 'muted' | 'dark';
+type ParagraphColor = 'primary' | 'secondary' | 'muted' | 'dark' | 'error';
 @Component({
   selector: 'app-paragraph',
   standalone: true,

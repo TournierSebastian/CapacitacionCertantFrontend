@@ -6,6 +6,7 @@
   --paragraph-color-secondary: #747987;
   --paragraph-color-muted: #858a97;
   --paragraph-color-dark: #333744;
+  --paragraph-color-error: #dc2626;
 
   // Tipografía
   --paragraph-font-size: 1rem;
@@ -60,5 +61,9 @@
 
   &--dark {
     color: var(--paragraph-color-dark);
+  }
+
+  &--error {
+    color: var(--paragraph-color-error);
   }
 }
