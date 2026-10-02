@@ -1,0 +1,58 @@
+<div class="demo">
+  <h1>Toast Demo</h1>
+
+  <p>
+    Probá las diferentes variantes del componente.
+  </p>
+
+  <div class="demo__buttons">
+    <app-button
+      variant="primary"
+      (clicked)="mostrarSuccess()"
+    >
+      Success
+    </app-button>
+
+    <app-button
+      variant="tertiary"
+      (clicked)="mostrarError()"
+    >
+      Error
+    </app-button>
+
+    <app-button
+      variant="secondary"
+      (clicked)="mostrarWarning()"
+    >
+      Warning
+    </app-button>
+
+    <app-button
+      variant="secondary"
+      (clicked)="mostrarInfo()"
+    >
+      Info
+    </app-button>
+
+    <app-button
+      variant="secondary"
+      (clicked)="mostrarVarios()"
+    >
+      Mostrar varios
+    </app-button>
+
+    <app-button
+      variant="secondary"
+      (clicked)="mostrarPersonalizado()"
+    >
+      Toast 8 segundos
+    </app-button>
+
+    <app-button
+      variant="secondary"
+      (clicked)="limpiar()"
+    >
+      Limpiar
+    </app-button>
+  </div>
+</div>
