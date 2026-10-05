@@ -1,0 +1,149 @@
+@if (open()) {
+  <app-side-panel [open]="open()" (openChange)="cerrar.emit()">
+    <app-side-panel-header>
+      @if (modoCreacion()) {
+        <app-paragraph size="sm" color="secondary">Nuevo caso</app-paragraph>
+        <h2>Crear caso</h2>
+      } @else if (cargandoDetalle()) {
+        <app-paragraph size="sm" color="secondary">Detalle del caso</app-paragraph>
+        <h2>Cargando...</h2>
+      } @else {
+        @if (caso(); as casoActual) {
+          @if (modoEdicion()) {
+            <app-paragraph size="sm" color="secondary">Editar caso #{{ casoActual.id }}</app-paragraph>
+            <h2>Modificar información</h2>
+          } @else {
+            <app-paragraph size="sm" color="secondary">Detalle del caso #{{ casoActual.id }}</app-paragraph>
+            <h2>{{ casoActual.titulo }}</h2>
+          }
+        }
+      }
+    </app-side-panel-header>
+
+    <app-side-panel-content>
+      @if (modoEdicion() || modoCreacion()) {
+        <div [formGroup]="formulario()">
+          <app-textfield
+            label="Título del caso"
+            placeholder="Ingresá el título"
+            formControlName="titulo"
+            [attr.aria-invalid]="formulario().controls.titulo.invalid && formulario().controls.titulo.touched" />
+          @if (formulario().controls.titulo.touched && formulario().controls.titulo.hasError('required')) {
+            <app-paragraph size="sm" color="error" role="alert">El título es obligatorio.</app-paragraph>
+          } @else if (formulario().controls.titulo.touched && formulario().controls.titulo.hasError('minlength')) {
+            <app-paragraph size="sm" color="error" role="alert">El título debe tener al menos 5 caracteres.</app-paragraph>
+          } @else if (formulario().controls.titulo.touched && formulario().controls.titulo.hasError('maxlength')) {
+            <app-paragraph size="sm" color="error" role="alert">El título no puede superar los 100 caracteres.</app-paragraph>
+          }
+
+          <app-textfield
+            label="Descripción"
+            placeholder="Ingresá una descripción"
+            formControlName="descripcion"
+            [attr.aria-invalid]="formulario().controls.descripcion.invalid && formulario().controls.descripcion.touched" />
+          @if (formulario().controls.descripcion.touched && formulario().controls.descripcion.hasError('required')) {
+            <app-paragraph size="sm" color="error" role="alert">La descripción es obligatoria.</app-paragraph>
+          } @else if (formulario().controls.descripcion.touched && formulario().controls.descripcion.hasError('minlength')) {
+            <app-paragraph size="sm" color="error" role="alert">La descripción debe tener al menos 10 caracteres.</app-paragraph>
+          } @else if (formulario().controls.descripcion.touched && formulario().controls.descripcion.hasError('maxlength')) {
+            <app-paragraph size="sm" color="error" role="alert">La descripción no puede superar los 1000 caracteres.</app-paragraph>
+          }
+
+          <app-select
+            placeholder="Sin asignar"
+            ariaLabel="Seleccionar responsable"
+            [options]="responsablesOptions()"
+            formControlName="responsableId" />
+          <app-select
+            placeholder="Seleccionar estado"
+            ariaLabel="Seleccionar estado"
+            [options]="estados()"
+            formControlName="estado" />
+          @if (formulario().controls.estado.touched && formulario().controls.estado.hasError('required')) {
+            <app-paragraph size="sm" color="error" role="alert">Seleccioná un estado.</app-paragraph>
+          }
+
+          <app-select
+            placeholder="Seleccionar prioridad"
+            ariaLabel="Seleccionar prioridad"
+            [options]="prioridades()"
+            formControlName="prioridad" />
+          @if (formulario().controls.prioridad.touched && formulario().controls.prioridad.hasError('required')) {
+            <app-paragraph size="sm" color="error" role="alert">Seleccioná una prioridad.</app-paragraph>
+          }
+        </div>
+      } @else if (cargandoDetalle()) {
+        <p role="status">Cargando el detalle del caso...</p>
+      } @else if (caso(); as casoActual) {
+        <div>
+          <app-paragraph size="sm" [bold]="true" color="dark">Descripción</app-paragraph>
+          <p>{{ casoActual.descripcion }}</p>
+        </div>
+
+        <div>
+          <app-paragraph size="sm" [bold]="true" color="dark">Estado</app-paragraph>
+          <app-badgecomponent [color]="colorEstado(casoActual.estado)">
+            {{ casoActual.estado }}
+          </app-badgecomponent>
+        </div>
+
+        <div>
+          <app-paragraph size="sm" [bold]="true" color="dark">Prioridad</app-paragraph>
+          <app-badgecomponent [color]="colorPrioridad(casoActual.prioridad)">
+            {{ casoActual.prioridad }}
+          </app-badgecomponent>
+        </div>
+
+        <div>
+          <app-paragraph size="sm" [bold]="true" color="dark">Responsable</app-paragraph>
+          <span>{{ casoActual.responsableNombre }}</span>
+        </div>
+
+        <div>
+          <app-paragraph size="sm" [bold]="true" color="dark">Fecha</app-paragraph>
+          <span>{{ casoActual.fechaCreacion }}</span>
+        </div>
+      }
+    </app-side-panel-content>
+
+    <app-side-panel-footer>
+      @if (modoCreacion()) {
+        <app-button variant="secondary" (clicked)="cerrar.emit()">
+          Cancelar
+        </app-button>
+
+        <app-button variant="primary" [disabled]="guardando()" (clicked)="crear.emit()">
+          Crear caso
+        </app-button>
+      } @else if (modoEdicion()) {
+        <app-button variant="secondary" (clicked)="cerrar.emit()">
+          Cancelar
+        </app-button>
+
+        <app-button variant="primary" [disabled]="guardando()" (clicked)="guardar.emit()">
+          Guardar cambios
+        </app-button>
+      } @else if (cargandoDetalle()) {
+        <app-button variant="secondary" (clicked)="cerrar.emit()">
+          Volver al listado
+        </app-button>
+      } @else {
+        <app-button
+          variant="tertiary"
+          ariaLabel="Eliminar caso"
+          style="--button-tertiary-color: #b42318; --button-tertiary-hover-color: #912018;"
+          (clicked)="eliminar.emit()">
+          Eliminar caso
+        </app-button>
+
+        <app-button variant="secondary" (clicked)="cerrar.emit()">
+          Cerrar
+        </app-button>
+
+        <app-button variant="primary" (clicked)="editar.emit()">
+          Editar caso
+        </app-button>
+      }
+    </app-side-panel-footer>
+  </app-side-panel>
+}

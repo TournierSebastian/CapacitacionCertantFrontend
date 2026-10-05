@@ -50,6 +50,11 @@ export interface CrearCasoInput {
   responsableId: number | null;
 }
 
+export interface FiltrosCasos {
+  estado?: CasoEstado;
+  prioridad?: CasoPrioridad;
+}
+
 export interface CasosPaginacion {
   pagina: number;
   limite: number;

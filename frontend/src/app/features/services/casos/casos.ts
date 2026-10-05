@@ -12,6 +12,7 @@ import {
   CasoEstadoApi,
   CasoPrioridad,
   CasoPrioridadApi,
+  FiltrosCasos,
 } from '../../models/casos/casos.model';
 
 export type {
@@ -35,6 +36,19 @@ const PRIORIDADES_API: Record<CasoPrioridad, CasoPrioridadApi> = {
   Baja: 'BAJA',
 };
 
+const ESTADOS_UI: Record<CasoEstadoApi, CasoEstado> = {
+  ABIERTO: 'Abierto',
+  EN_PROGRESO: 'En progreso',
+  RESUELTO: 'Resuelto',
+  CERRADO: 'Cerrado',
+};
+
+const PRIORIDADES_UI: Record<CasoPrioridadApi, CasoPrioridad> = {
+  ALTA: 'Alta',
+  MEDIA: 'Media',
+  BAJA: 'Baja',
+};
+
 @Injectable({
   providedIn: 'root',
 })
@@ -47,7 +61,7 @@ export class CasosService {
   listar(
     pagina = 1,
     limite = 10,
-    filtros?: Record<string, string | number | boolean>,
+    filtros?: FiltrosCasos,
   ): Observable<CasosPagina> {
     return this.http
       .get<CasosApiResponse>(this.apiUrl, {
@@ -58,7 +72,7 @@ export class CasosService {
 
   /** GET /casos — Obtiene todas las páginas, reservado para búsqueda global. */
   listarTodos(
-    filtros?: Record<string, string | number | boolean>,
+    filtros?: FiltrosCasos,
   ): Observable<Caso[]> {
     const claveCache = JSON.stringify(
       Object.entries(filtros ?? {}).sort(([claveA], [claveB]) => claveA.localeCompare(claveB)),
@@ -97,17 +111,21 @@ export class CasosService {
   }
 
   private crearParams(
-    filtros?: Record<string, string | number | boolean>,
-    pagina?: number,
-    limite?: number,
+    filtros: FiltrosCasos = {},
+    pagina = 1,
+    limite = 10,
   ): HttpParams {
     let params = new HttpParams();
 
-    for (const [clave, valor] of Object.entries(filtros ?? {})) {
-      params = params.set(clave, String(valor));
+    if (filtros.estado) {
+      params = params.set('estado', ESTADOS_API[filtros.estado]);
     }
 
-    return params.set('pagina', pagina ?? 1).set('limite', limite ?? 10);
+    if (filtros.prioridad) {
+      params = params.set('prioridad', PRIORIDADES_API[filtros.prioridad]);
+    }
+
+    return params.set('pagina', pagina).set('limite', limite);
   }
 
   private normalizarPagina(respuesta: CasosApiResponse): CasosPagina {
@@ -121,25 +139,12 @@ export class CasosService {
   }
 
   private normalizarCaso(caso: CasoApi): Caso {
-    const estados: Record<CasoEstadoApi, CasoEstado> = {
-      ABIERTO: 'Abierto',
-      EN_PROGRESO: 'En progreso',
-      RESUELTO: 'Resuelto',
-      CERRADO: 'Cerrado',
-    };
-
-    const prioridades: Record<CasoPrioridadApi, CasoPrioridad> = {
-      ALTA: 'Alta',
-      MEDIA: 'Media',
-      BAJA: 'Baja',
-    };
-
     return {
       id: caso.id,
       titulo: caso.titulo,
       descripcion: caso.descripcion ?? '',
-      estado: estados[caso.estado],
-      prioridad: prioridades[caso.prioridad],
+      estado: ESTADOS_UI[caso.estado],
+      prioridad: PRIORIDADES_UI[caso.prioridad],
       responsableNombre: caso.responsableNombre ?? 'Sin asignar',
       responsableId: caso.responsableId ?? null,
       fechaCreacion: caso.fechaCreacion,

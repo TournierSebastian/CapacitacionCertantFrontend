@@ -1,59 +1,65 @@
-# Frontend
+# Gestión de Casos
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.1.8.
+Frontend Angular para consultar y administrar casos mediante la API REST de la práctica.
 
-## Development server
+## Funcionalidades
 
-To start a local development server, run:
+- Listado paginado con búsqueda global por título, responsable o id.
+- Filtros por estado y prioridad.
+- Consulta de detalle, alta, edición y eliminación confirmada.
+- Formularios reactivos con validación y mensajes de resultado.
+- Estados de carga, error, listado vacío y búsqueda sin resultados.
+- Responsables cargados desde la API; la asignación puede quedar vacía.
 
-```bash
-ng serve
-```
+## Requisitos
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- Node.js y npm.
+- API disponible en `http://localhost:3000/api`.
 
-## Code scaffolding
+La documentación de la API está en `http://localhost:3000/api/docs`.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Instalación y ejecución
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+Desde el directorio del frontend, donde se encuentra `package.json`:
 
 ```bash
-ng build
+npm install
+npm start
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+La aplicación queda disponible en `http://localhost:4200`.
 
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+Comandos adicionales:
 
 ```bash
-ng test
+npm run build
 ```
 
-## Running end-to-end tests
+## Tecnologías
 
-For end-to-end (e2e) testing, run:
+- Angular 22 y TypeScript.
+- Angular Router y componentes standalone.
+- Formularios reactivos.
+- `HttpClient` y RxJS.
+- Angular CDK y SCSS.
 
-```bash
-ng e2e
+## Estructura
+
+```text
+src/app/
+├── core/          Servicios transversales
+├── environments/  Configuración de la URL base de la API
+├── features/
+│   ├── models/    Modelos de casos y responsables
+│   ├── pages/     Pantallas y flujos de la aplicación
+│   └── services/  Comunicación HTTP de cada dominio
+└── shared/        Componentes reutilizables
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Decisiones técnicas
 
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- La aplicación usa componentes standalone y Angular Router, sin módulos de funcionalidad.
+- Las llamadas HTTP se centralizan en servicios; los componentes coordinan la interfaz y los formularios.
+- Los formularios de alta y edición son reactivos y usan controles tipados.
+- El listado usa paginación de la API. La búsqueda de texto es global y local sobre los casos que coinciden con los filtros; sus páginas se reutilizan por combinación de filtros y la caché se invalida al crear, modificar o eliminar.
+- La URL base se configura en `src/app/environments/environment.ts`.

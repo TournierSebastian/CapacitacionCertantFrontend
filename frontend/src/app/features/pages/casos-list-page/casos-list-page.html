@@ -11,20 +11,25 @@
 			</app-button>
 		</app-flex-layout>
 
+		@if (cargandoCasos()) {
+		<p role="status">Cargando casos...</p>
+		}
+
 		<app-block-container appearance="surface">
 			<app-block-layout>
 				<app-block-container padding="20px 22px">
 					<app-flex-layout [growChildren]="true" [wrap]="true" gap="16px" align="center">
-						<app-textfield type="search" icon="⌕" placeholder="Buscar por caso, responsable o ID..."
-							label="Buscar casos por título, responsable o ID" [value]="busqueda"
-							(valueChange)="cambiarBusqueda($event)" />
+						<app-textfield [formControl]="busquedaControl" type="search" icon="⌕"
+							placeholder="Buscar por caso, responsable o ID..."
+							label="Buscar casos por título, responsable o ID" />
 
 						<app-flex-layout [wrap]="true" gap="10px" align="center">
 							<app-select placeholder="Todos los estados" ariaLabel="Filtrar por estado"
-								[options]="estados" [value]="estadoSeleccionado"
+								[options]="estados" [value]="estadoSeleccionado()"
 								(valueChange)="cambiarEstado($event)" />
+
 							<app-select placeholder="Todas las prioridades" ariaLabel="Filtrar por prioridad"
-								[options]="prioridades" [value]="prioridadSeleccionada"
+								[options]="prioridades" [value]="prioridadSeleccionada()"
 								(valueChange)="cambiarPrioridad($event)" />
 						</app-flex-layout>
 					</app-flex-layout>
@@ -41,24 +46,47 @@
 							<app-table-header-cell>Fecha</app-table-header-cell>
 						</app-table-row>
 					</app-table-head>
+
 					<app-table-body>
-						@for (caso of casosPaginados; track caso.identificador) {
+						@for (caso of casosPaginados(); track caso.id) {
 						<app-table-row [interactive]="true" (rowClick)="abrirDetalle(caso)">
-							<app-table-cell>#{{ caso.identificador }}</app-table-cell>
+							<app-table-cell>#{{ caso.id }}</app-table-cell>
+							
 							<app-table-cell>{{ caso.titulo }}</app-table-cell>
-							<app-table-cell><app-badgecomponent [color]="colorEstado(caso.estado)" [shadow]="true">{{
-									caso.estado }}</app-badgecomponent></app-table-cell>
-							<app-table-cell><app-badgecomponent [color]="colorPrioridad(caso.prioridad)">{{
-									caso.prioridad }}</app-badgecomponent></app-table-cell>
-							<app-table-cell>{{ caso.responsableAsignado }}</app-table-cell>
-							<app-table-cell>{{ caso.fechaCreacion }}</app-table-cell>
+							
+							<app-table-cell>
+								<app-badgecomponent [color]="colorEstado(caso.estado)" [shadow]="true">
+									{{ caso.estado }}
+								</app-badgecomponent>
+							</app-table-cell>
+
+							<app-table-cell>
+								<app-badgecomponent [color]="colorPrioridad(caso.prioridad)">
+									{{ caso.prioridad }}
+								</app-badgecomponent>
+							</app-table-cell>
+
+							<app-table-cell>
+								{{ caso.responsableNombre }}
+							</app-table-cell>
+
+							<app-table-cell>
+								{{ caso.fechaCreacion }}
+							</app-table-cell>
 						</app-table-row>
 						} @empty {
 						<app-table-row>
 							<app-table-cell [colspan]="6">
 								<div>
-									<strong>No se encontraron casos</strong>
-									<span>Probá cambiando los filtros o la búsqueda.</span>
+									<strong>
+										{{
+cargandoCasos()
+										? 'Cargando casos...'
+										: totalElementos() === 0
+										? 'Todavía no hay casos'
+										: 'No hay resultados para esta búsqueda'
+										}}
+									</strong>
 								</div>
 							</app-table-cell>
 						</app-table-row>
@@ -68,62 +96,22 @@
 
 				<app-block-container padding="16px 22px">
 					<app-flex-layout align="center" justify="between" gap="16px" [wrap]="true">
-						<span>Mostrando {{ desde }}–{{ hasta }} de {{ totalElementos }} casos</span>
-						<app-paginator [paginaActual]="paginaActual" [totalPaginas]="totalPaginas" [paginas]="paginas"
-							(cambiarPagina)="irAPagina($event)" />
+						<app-paragraph> Mostrando {{ desde() }}–{{ hasta() }} de{{ totalElementos() }} casos
+						</app-paragraph>
+
+						<app-paginator [paginaActual]="paginaActual()" [totalPaginas]="totalPaginas()"
+							[paginas]="paginas()" (cambiarPagina)="irAPagina($event)" />
 					</app-flex-layout>
 				</app-block-container>
+
 			</app-block-layout>
 		</app-block-container>
+
 	</app-block-layout>
 </app-block-container>
 
-@if (casoSeleccionado; as caso) {
-  <app-side-panel [(open)]="mostrarPanel">
-    <app-side-panel-header>
-      <span>Detalle del caso #{{ caso.identificador }}</span>
-      <h2>{{ caso.titulo }}</h2>
-    </app-side-panel-header>
-
-    <app-side-panel-content>
-      <div>
-        <span>Descripción</span>
-        <p>{{ caso.descripcion }}</p>
-      </div>
-
-      <div>
-        <span>Estado</span>
-        <app-badgecomponent [color]="colorEstado(caso.estado)">
-          {{ caso.estado }}
-        </app-badgecomponent>
-      </div>
-
-      <div>
-        <span>Prioridad</span>
-        <app-badgecomponent [color]="colorPrioridad(caso.prioridad)">
-          {{ caso.prioridad }}
-        </app-badgecomponent>
-      </div>
-
-      <div>
-        <span>Responsable</span>
-        <span>{{ caso.responsableAsignado }}</span>
-      </div>
-
-      <div>
-        <span>Fecha</span>
-        <span>{{ caso.fechaCreacion }}</span>
-      </div>
-    </app-side-panel-content>
-
-    <app-side-panel-footer>
-      <app-button variant="secondary" (clicked)="cerrarPanel()">
-        Cerrar
-      </app-button>
-
-      <app-button variant="primary" (clicked)="editarCaso()">
-        Editar caso
-      </app-button>
-    </app-side-panel-footer>
-  </app-side-panel>
-}
+<app-caso-detalle-panel [caso]="casoSeleccionado()" [open]="mostrarPanel()" [modoEdicion]="modoEdicion()"
+	[modoCreacion]="modoCreacion()" [formulario]="formularioEdicion()" [estados]="estados" [prioridades]="prioridades"
+	[responsablesOptions]="responsablesOptions()" [guardando]="guardando()" [cargandoDetalle]="cargandoDetalle()"
+	[errorDetalle]="errorDetalle()" [errorResponsables]="errorResponsables()" (cerrar)="cerrarPanel()"
+	(editar)="editarCaso()" (guardar)="guardarEdicion()" (crear)="guardarCreacion()" (eliminar)="eliminarCaso()" />
